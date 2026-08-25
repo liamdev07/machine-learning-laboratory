@@ -1,0 +1,11 @@
+{
+    "window.zoomLevel": 0.5,
+    "notebook.outputScrolling": false,
+    "notebook.fontSize": 15,
+    "notebook.markup.fontSize": 17,
+    "editor.fontSize": 15,
+    "editor.tabCompletion": "on",
+    "diffEditor.codeLens": true,
+    "notebook.output.lineHeight": 24,
+    "notebook.output.fontSize": 16
+}

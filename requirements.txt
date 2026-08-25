@@ -1,0 +1,11 @@
+# M.Tech Machine Learning Laboratory — root environment
+# Pins are Python 3.14-compatible (this machine's interpreter). Use 3.10–3.12 if you need older pins.
+
+numpy>=2.2.0
+pandas>=2.2.3
+matplotlib>=3.9.2
+seaborn>=0.13.2
+scikit-learn>=1.5.2
+jupyter>=1.1.1
+ipykernel>=6.29.5
+scipy>=1.14.1

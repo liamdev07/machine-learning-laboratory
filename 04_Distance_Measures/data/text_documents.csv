@@ -1,0 +1,7 @@
+doc_id,topic,text
+D1,ml,"machine learning clustering uses distance between feature vectors"
+D2,ml,"k means groups customers by euclidean distance in feature space"
+D3,ml,"gradient descent minimizes residual error in linear regression"
+D4,sports,"football cricket tennis are popular sports with large stadiums"
+D5,sports,"the cricket match score was high after the final over"
+D6,food,"pasta recipe with tomato sauce and olive oil for dinner"
