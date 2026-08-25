@@ -1,10 +1,23 @@
 # M.Tech Machine Learning Laboratory
 
-Industry-standard, syllabus-aligned **Machine Learning practicals** for postgraduate (M.Tech) coursework. Each experiment is a self-contained folder with a production-grade Jupyter notebook, local sample data, dual load paths (local disk **and** Google Colab / URL fallback), micro-level theory (including LaTeX), and viva-voce Q&A.
+Syllabus-aligned **Machine Learning practicals** for postgraduate (M.Tech) coursework. Every practical is one small folder containing a clean Jupyter notebook and its dataset.
 
-> **Scope note:** The existing `extra/` directory is **out of scope** for this laboratory tree. Do not treat it as part of the graded practical sequence.
+Each notebook follows the same simple **4-section classroom format**:
 
-## Environment
+| Section | Content |
+|---------|---------|
+| 1. Aim & Objectives | What the experiment does, in 2–3 lines |
+| 2. Complete Python Code | One clean, readable code cell (NumPy / Pandas / Scikit-Learn + a Matplotlib plot) |
+| 3. Line-by-Line Code Explanation | What every import, function and variable means, in plain language |
+| 4. Output & Graph Interpretation | Two lines explaining the result and the graph |
+
+> **Scope note:** the `extra/` directory is **not** part of this laboratory and is left untouched.
+
+## How to run
+
+**Google Colab (nothing to install):** click the *Open in Colab* badge of any practical in the table below, then choose **Runtime → Run all**. The notebook reads its CSV directly from this repository, so no upload is needed.
+
+**Local machine (standard Python 3):**
 
 ```bash
 python -m venv .venv
@@ -14,139 +27,50 @@ python -m venv .venv
 source .venv/bin/activate
 
 pip install -r requirements.txt
-python -m ipykernel install --user --name ml-lab-kernel --display-name "Python (ML Lab Kernel)"
 jupyter notebook
 ```
 
-In Jupyter / VS Code / Cursor, select kernel **Python (ML Lab Kernel)** (`ml-lab-kernel`) so every practical uses this `.venv`.
+Open any `practical_XX.ipynb` and select the normal **Python 3** kernel — no custom kernel is required. The notebooks need only `numpy`, `pandas`, `matplotlib` and `scikit-learn`.
+
+Every notebook picks its data automatically:
+
+```python
+path = CSV if os.path.exists(CSV) else URL   # local file first, GitHub copy on Colab
+df = pd.read_csv(path)
 ```
 
-**Google Colab:** upload a practical folder (or clone the repository) and run the notebook. Dataset loaders fall back to a public URL if `./data/` is not present.
+## Laboratory index
 
-**Reproducibility:** notebooks fix `random_state` / NumPy RNG seeds. Record Python and package versions in the environment cell.
+| No. | Experiment | Dataset | Open in Colab |
+|-----|------------|---------|---------------|
+| 01 | [Python Basics for ML](01_Python_ML_Basics/) | California housing | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/01_Python_ML_Basics/practical_01.ipynb) |
+| 02 | [Covariance and Correlation](02_Covariance_Correlation/) | Iris | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/02_Covariance_Correlation/practical_02.ipynb) |
+| 03 | [Linear Regression and Residual Error](03_Linear_Regression/) | Medical insurance | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/03_Linear_Regression/practical_03.ipynb) |
+| 04 | [Distance Measures](04_Distance_Measures/) | Wine | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/04_Distance_Measures/practical_04.ipynb) |
+| 05 | [Decision Tree using ID3](05_Decision_Tree_ID3/) | Play Tennis | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/05_Decision_Tree_ID3/practical_05.ipynb) |
+| 06 | [K-Nearest Neighbours](06_KNN_Classifier/) | Wine | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/06_KNN_Classifier/practical_06.ipynb) |
+| 07 | [Feature Reduction using PCA](07_PCA_Feature_Reduction/) | Breast cancer | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/07_PCA_Feature_Reduction/practical_07.ipynb) |
+| 08 | [Naive Bayes for Text](08_Naive_Bayes_Text/) | SMS spam | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/08_Naive_Bayes_Text/practical_08.ipynb) |
+| 09 | [SVM with Hyperparameter Tuning](09_SVM_Hyperparameter_Tuning/) | Heart disease | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/09_SVM_Hyperparameter_Tuning/practical_09.ipynb) |
+| 10 | [Perceptron Learning Algorithm](10_Perceptron_Algorithm/) | Sonar | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/10_Perceptron_Algorithm/practical_10.ipynb) |
 
-## Laboratory syllabus index
+Classroom lecture notebooks are kept separately in [`theory_class_notebooks/`](theory_class_notebooks/).
 
-| No. | Folder | Experiment | Core outcomes |
-|-----|--------|------------|----------------|
-| 01 | [`01_Python_ML_Basics/`](01_Python_ML_Basics/) | Python scientific stack for ML | NumPy vectorization & linear algebra, Pandas EDA, Matplotlib/Seaborn, sklearn train/test split, scaling, baseline model |
-| 02 | [`02_Covariance_Correlation/`](02_Covariance_Correlation/) | Covariance, Pearson \(r\), \(\Sigma\) | Hand calculation (\(n-1\)), vectorized NumPy/Pandas, heatmaps/pairplots, signed association |
-| 03 | [`03_Linear_Regression/`](03_Linear_Regression/) | Linear regression & residual error | OLS normal equations, GD from scratch, sklearn LR, MAE/MSE/RMSE/\(R^2\), residual diagnostics |
-| 04 | [`04_Distance_Measures/`](04_Distance_Measures/) | Distance measures | Euclidean, Manhattan, Minkowski, Chebyshev, cosine; NumPy vs SciPy/sklearn; curse of dimensionality |
-| 05 | [`05_Decision_Tree_ID3/`](05_Decision_Tree_ID3/) | Decision tree (ID3) | Entropy/IG from scratch, sklearn entropy trees, plot_tree, confusion/F1/ROC, depth vs overfit |
-| 06 | [`06_KNN_Classifier/`](06_KNN_Classifier/) | k-NN classifier | Vectorized NumPy kNN, sklearn pipeline + scaling, error vs \(k\), decision boundaries, accuracy |
-| 07 | [`07_PCA_Feature_Reduction/`](07_PCA_Feature_Reduction/) | PCA feature reduction | NumPy eig/SVD PCA, sklearn inverse reconstruct, scree/2D/3D/biplot, classifier before vs after |
-| 08 | [`08_Naive_Bayes_Text/`](08_Naive_Bayes_Text/) | Naïve Bayes text classification | Bayes + Laplace, Count/TF–IDF, scratch MultinomialNB, sklearn pipeline, SMS spam diagnostics |
-| 09 | [`09_SVM_Hyperparameter_Tuning/`](09_SVM_Hyperparameter_Tuning/) | SVM + hyperparameter tuning | Max-margin / kernels / \(C,\gamma\), NumPy dual \(f(x)\), GridSearchCV, SV plots, ROC |
-| 10 | [`10_Perceptron_Algorithm/`](10_Perceptron_Algorithm/) | Perceptron learning | Heaviside, delta rule, Novikoff, AND/OR vs XOR, sklearn Perceptron on Sonar |
-| 11 | `11_Data_Preprocessing/` | Data cleaning & feature engineering | Missing values, encoding, outliers, pipelines, leakage-safe transforms |
-| 12 | `12_Regularized_Regression/` | Ridge / Lasso / ElasticNet | Shrinkage, residual diagnostics, RMSE, \(R^2\) |
-| 13 | `13_Model_Selection/` | Validation & tuning | k-fold CV, nested CV, GridSearch/RandomizedSearch, learning curves |
-| 14 | `14_Ensemble_Methods/` | Bagging, boosting, stacking | Random Forest, Gradient Boosting / XGBoost-style ideas, feature importance |
-| 15 | `15_Unsupervised_Clustering/` | Clustering | k-means, hierarchical, DBSCAN, silhouette & cluster validity |
-| 16 | `16_Neural_Networks/` | MLP / intro DL | Backprop intuition, sklearn MLP or a small Keras/PyTorch lab |
-| 17 | `17_NLP_Fundamentals/` | Text representation | Bag-of-words, TF–IDF, simple classifiers on text |
-| 18 | `18_Time_Series/` | Forecasting basics | Stationarity, lag features, walk-forward validation |
-| 19 | `19_MLOps_Deployment/` | Production hygiene | Serialization, inference API sketch, metrics logging, reproducibility checklist |
+## Repository layout
 
-This repository currently ships **Practicals 01–10** in full. Folders **11–19** are reserved.
-
-## Practical 01 quick start
-
-```bash
-cd 01_Python_ML_Basics
-jupyter notebook practical_01.ipynb
+```text
+01_Python_ML_Basics/
+    practical_01.ipynb      <- the 4-section lab notebook
+    data/                   <- the CSV used by that notebook
+    README.md
+...
+10_Perceptron_Algorithm/
+theory_class_notebooks/     <- lecture / demo notebooks (not graded labs)
+requirements.txt
 ```
-
-Local benchmark CSV: `01_Python_ML_Basics/data/california_housing_lab_benchmark.csv`.
-
-## Practical 02 quick start
-
-```bash
-cd 02_Covariance_Correlation
-jupyter notebook practical_02.ipynb
-```
-
-Local benchmarks: `data/iris.csv`, `data/auto_mpg.csv`. Kernel: **Python (ML Lab Kernel)** (`ml-lab-kernel`).
-
-## Practical 03 quick start
-
-```bash
-cd 03_Linear_Regression
-jupyter notebook practical_03.ipynb
-```
-
-Local benchmark: `data/medical_insurance.csv` (medical charges). Kernel: **Python (ML Lab Kernel)** (`ml-lab-kernel`).
-
-## Practical 04 quick start
-
-```bash
-cd 04_Distance_Measures
-jupyter notebook practical_04.ipynb
-```
-
-Local benchmarks: `data/wine.csv`, `data/customers_rfm.csv`, `data/text_tfidf.csv`. Kernel: **Python (ML Lab Kernel)** (`ml-lab-kernel`).
-
-## Practical 05 quick start
-
-```bash
-cd 05_Decision_Tree_ID3
-jupyter notebook practical_05.ipynb
-```
-
-Local data: `data/play_tennis.csv`, `data/breast_cancer.csv`. Kernel: **Python (ML Lab Kernel)** (`ml-lab-kernel`).
-
-## Practical 06 quick start
-
-```bash
-cd 06_KNN_Classifier
-jupyter notebook practical_06.ipynb
-```
-
-Local benchmark: `data/wine.csv`. Kernel: **Python (ML Lab Kernel)** (`ml-lab-kernel`).
-
-## Practical 07 quick start
-
-```bash
-cd 07_PCA_Feature_Reduction
-jupyter notebook practical_07.ipynb
-```
-
-Local benchmark: `data/breast_cancer.csv`. Kernel: **Python (ML Lab Kernel)** (`ml-lab-kernel`).
-
-## Practical 08 quick start
-
-```bash
-cd 08_Naive_Bayes_Text
-jupyter notebook practical_08.ipynb
-```
-
-Local benchmark: `data/sms_spam.csv` (SMS Spam Collection). Kernel: **Python (ML Lab Kernel)** (`ml-lab-kernel`).
-
-## Practical 09 quick start
-
-```bash
-cd 09_SVM_Hyperparameter_Tuning
-jupyter notebook practical_09.ipynb
-```
-
-Local benchmark: `data/heart_disease.csv`. Kernel: **Python (ML Lab Kernel)** (`ml-lab-kernel`).
-
-## Practical 10 quick start
-
-```bash
-cd 10_Perceptron_Algorithm
-jupyter notebook practical_10.ipynb
-```
-
-Local benchmark: `data/sonar.csv` (Mines vs Rocks). Kernel: **Python (ML Lab Kernel)** (`ml-lab-kernel`).
 
 ## Academic use
 
-- Treat notebooks as **lab records**: run top-to-bottom, keep outputs for submission if required.
-- Cite datasets and libraries. The Colab/URL fallback uses the public California Housing file from the Hands-On ML companion repository when local data is absent.
-- Viva questions at the end of each notebook are indicative, not exhaustive.
-
-## License / coursework
-
-Use according to your university academic integrity policy. Do not submit unmodified notebooks as solely your own work if your department requires original write-ups.
+- Treat the notebooks as **lab records**: run them from top to bottom and keep the outputs for submission.
+- Every result printed in a notebook comes from the code in that same notebook, so any number can be reproduced during viva.
+- Cite the datasets and libraries, and follow your university academic integrity policy for the written record.

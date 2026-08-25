@@ -1,52 +1,46 @@
-# Practical 07 — Feature Reduction with PCA
+# Practical 07 — Feature Reduction using PCA
 
-**Syllabus (Parul University):** *Perform feature reduction using PCA and visualise the transformed features.*  
-**Kernel:** `ml-lab-kernel`  
-**Data:** Wisconsin Breast Cancer (`data/breast_cancer.csv`) — 30 numeric assays, binary `diagnosis`
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/07_PCA_Feature_Reduction/practical_07.ipynb)
+
+**Aim:** To perform feature reduction using Principal Component Analysis and visualise the transformed features.
+
+**Dataset:** `data/breast_cancer.csv` — 569 tumours, 30 numeric measurements, `diagnosis` = malignant / benign.
 
 ## Objectives
 
-1. Mean-center **four** 2-D points; form \(\Sigma\); solve \(\det(\Sigma-\lambda I)=0\); recover unit \(v_1,v_2\); match NumPy / sklearn.
-2. State **unsupervised** PCA, **eigendecomposition vs SVD**, and **reconstruction MSE**.
-3. Implement `NumpyPCA` (`np.linalg.eigh`) whose eigenvalues and (sign-aligned) scores match `sklearn.decomposition.PCA`.
-4. Fit a leakage-safe `Pipeline(StandardScaler, PCA)` on Breast Cancer; never scale on the test fold.
-5. Plot **scree + 95%**, **2-D / 3-D scores**, **loadings heatmap + biplot**, and a **downstream classifier** (fit time and test accuracy before vs after PCA).
+1. Standardise the 30 features of the Breast Cancer dataset.
+2. Apply PCA and study the explained variance of each principal component.
+3. Project the data onto 2 components, plot it, and compare accuracy before and after PCA.
 
-## Files
+## Notebook structure
 
-| Path | Role |
-|------|------|
-| `practical_07.ipynb` | Full lab |
-| `data/breast_cancer.csv` | 30 assays + `diagnosis` |
-
-## Swap your CSV (CONFIG cell)
-
-```python
-DATA_PATH = "data/breast_cancer.csv"
-TARGET_COLUMN = "diagnosis"
-NUMERIC_FEATURES = None    # or a list of numeric names
-N_COMPONENTS = 2           # 2-D plots / biplot; scree still uses all PCs
-DROP_COLUMNS = []
-```
-
-## Dataset loading (fallback)
-
-1. Local `DATA_PATH`  
-2. Colab Drive / upload  
-3. `sklearn.datasets.load_breast_cancer`
+| Section | Content |
+|---------|---------|
+| 1. Aim & Objectives | Purpose of the experiment |
+| 2. Complete Python Code | One clean code cell that runs top to bottom |
+| 3. Line-by-Line Code Explanation | Meaning of every import, function and variable |
+| 4. Output & Graph Interpretation | What the scree plot and 2-D projection show |
 
 ## How to run
+
+**Google Colab:** click the badge above, then **Runtime → Run all**.
+
+**Local machine:**
 
 ```bash
 cd 07_PCA_Feature_Reduction
 jupyter notebook practical_07.ipynb
 ```
 
-Select **Python (ML Lab Kernel)**.
+Use the standard **Python 3** kernel. Required packages: `numpy`, `pandas`, `matplotlib`, `scikit-learn`.
 
-## Assessment hints
+## Expected result
 
-- Toy: \(\lambda_1=3\), \(\lambda_2=1/3\), \(\pi_1=0.9\), \(v_1=(1,1)/\sqrt{2}\).
-- PCA does **not** use `diagnosis`; colour is display-only.
-- Quote **test** accuracy at the \(q\) you chose; reconstruction MSE is not a class label.
-- Unscaled PCA is dominated by large-range columns (area vs smoothness).
+The first two components keep about 63% of the variance and 10 components reach the 95% level; accuracy falls only from about 0.97 (30 features) to 0.94 (2 components).
+
+## Viva points
+
+- PCA is **unsupervised** — the `diagnosis` label is used only to colour the plot.
+- Standardisation is required first, otherwise `mean area` dominates every component.
+- Explained variance ratio and the meaning of the cumulative (scree) curve.
+- Reducing 30 columns to 2 loses some accuracy but makes the data easy to visualise.

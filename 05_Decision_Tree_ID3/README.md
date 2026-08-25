@@ -1,52 +1,48 @@
-# Practical 05 — Decision Tree (ID3)
+# Practical 05 — Decision Tree using ID3 (Entropy)
 
-**Syllabus (Parul University):** *Implement a Decision Tree (ID3) on a dataset and evaluate its performance.*  
-**Kernel:** `ml-lab-kernel`  
-**Data:** Quinlan *Play Tennis* (categorical ID3 walkthrough) + Wisconsin Breast Cancer (sklearn entropy tree)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/05_Decision_Tree_ID3/practical_05.ipynb)
+
+**Aim:** To implement a Decision Tree classifier using the ID3 approach (entropy and information gain) and analyse its performance.
+
+**Dataset:** `data/play_tennis.csv` — the classic 14-row Play Tennis table (outlook, temperature, humidity, wind → play).
 
 ## Objectives
 
-1. Compute **Shannon entropy** $H(S)\approx 0.940$ on Play Tennis and **information gain** for Outlook, Temperature, Humidity, Wind; show **Outlook** is the ID3 root.
-2. Grow a **recursive ID3 tree from scratch** (Python/NumPy) and print it in **ASCII**.
-3. Fit `DecisionTreeClassifier(criterion='entropy')` with `train_test_split` and a search over `max_depth` and `min_samples_split`.
-4. Plot the **full tree**, **train vs test accuracy vs depth** (overfitting), and a **confusion matrix + ROC–AUC**.
+1. Load the Play-Tennis dataset and convert its categorical columns into numbers.
+2. Train a `DecisionTreeClassifier` with `criterion="entropy"`, which is the ID3 splitting rule.
+3. Print the tree rules, check the accuracy, and plot the tree diagram.
 
-## Files
+## Notebook structure
 
-| Path | Role |
-|------|------|
-| `practical_05.ipynb` | Full lab |
-| `data/play_tennis.csv` | 14-row weather → play |
-| `data/breast_cancer.csv` | Wisconsin diagnostic features + `diagnosis` |
-
-## Swap your CSV (CONFIG cell)
-
-```python
-DATA_PATH = "data/breast_cancer.csv"
-TARGET_COLUMN = "diagnosis"
-FEATURE_COLUMNS = None          # or a list of numeric names
-DROP_COLUMNS = []
-PLAY_TENNIS_PATH = "data/play_tennis.csv"
-```
-
-## Dataset loading (fallback)
-
-1. Local CSVs from CONFIG  
-2. Colab Drive / upload  
-3. Tennis: in-notebook 14-row table; cancer: `sklearn.datasets.load_breast_cancer`
+| Section | Content |
+|---------|---------|
+| 1. Aim & Objectives | Purpose of the experiment |
+| 2. Complete Python Code | One clean code cell that runs top to bottom |
+| 3. Line-by-Line Code Explanation | Meaning of every import, function and variable |
+| 4. Output & Graph Interpretation | What the tree diagram and accuracy show |
 
 ## How to run
+
+**Google Colab:** click the badge above, then **Runtime → Run all**.
+
+**Local machine:**
 
 ```bash
 cd 05_Decision_Tree_ID3
 jupyter notebook practical_05.ipynb
 ```
 
-Select **Python (ML Lab Kernel)**.
+Use the standard **Python 3** kernel. Required packages: `numpy`, `pandas`, `matplotlib`, `scikit-learn`.
 
-## Assessment hints
+## Expected result
 
-- Reproduce $H(S)\approx 0.940$ and the IG ranking without looking at sklearn.
-- ID3 does not reuse a discrete attribute on a path; sklearn numeric trees use binary thresholds.
-- Quote **test** accuracy and ROC–AUC, not only training fit.
-- A rising train curve and a falling test curve vs `max_depth` is overfitting.
+The dataset entropy is H(S) ≈ 0.94, the tree splits first on `outlook`, and the training accuracy is 1.0 on these 14 rows.
+
+## Viva points
+
+- Entropy formula H(S) = −Σ p·log₂p and what the value 0.94 means.
+- Information gain decides which feature becomes the root.
+- ID3 uses entropy/information gain; CART uses the Gini index.
+- Accuracy 1.0 on 14 rows is memorisation — mention `max_depth` pruning on larger data.
+
+`data/breast_cancer.csv` is kept in this folder if you want to repeat the experiment on a larger numeric dataset.

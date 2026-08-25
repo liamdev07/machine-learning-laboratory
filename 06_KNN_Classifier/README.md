@@ -1,52 +1,46 @@
-# Practical 06 — k-Nearest Neighbours (kNN)
+# Practical 06 — K-Nearest Neighbours (KNN) Classifier
 
-**Syllabus (Parul University):** *Implement k-Nearest Neighbours (kNN) and evaluate accuracy.*  
-**Kernel:** `ml-lab-kernel`  
-**Data:** UCI Wine (`data/wine.csv`) — 13 chemical features, 3 cultivars
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/06_KNN_Classifier/practical_06.ipynb)
+
+**Aim:** To implement the K-Nearest Neighbours classification algorithm and evaluate its accuracy.
+
+**Dataset:** `data/wine.csv` — 178 wines, 13 chemical measurements, 3 cultivars.
 
 ## Objectives
 
-1. Compute **Euclidean** distances from a query to **six** 2-D training points; vote for $k=1,3,5$ with **uniform** and **inverse-distance** weights; match sklearn.
-2. State **lazy / non-parametric** learning, the **bias–variance** role of $k$, and **train-only** `StandardScaler`.
-3. Implement a vectorized NumPy `KNNClassifier` whose labels match `KNeighborsClassifier` (brute, Euclidean).
-4. Wrap sklearn kNN in a **Pipeline** with scaler fit on train; sweep **odd** $k\in\{1,3,\ldots,25\}$ on a **validation** set; pick $k^\star$.
-5. Plot **train vs val error vs $k$**, **three 2-D decision regions** ($k=1$, $k^\star$, large $k$), and a **test confusion matrix**.
+1. Train a KNN classifier on the Wine dataset after applying feature scaling.
+2. Measure accuracy and display the confusion matrix on the test data.
+3. Plot accuracy against different values of k to choose the best k.
 
-## Files
+## Notebook structure
 
-| Path | Role |
-|------|------|
-| `practical_06.ipynb` | Full lab |
-| `data/wine.csv` | UCI Wine + `cultivar` |
-
-## Swap your CSV (CONFIG cell)
-
-```python
-DATA_PATH = "data/wine.csv"
-TARGET_COLUMN = "cultivar"
-FEATURE_COLUMNS = None       # or a list of numeric names
-K_NEIGHBORS = 5              # default k; grid search still runs 1..25 odd
-DROP_COLUMNS = []
-```
-
-## Dataset loading (fallback)
-
-1. Local `DATA_PATH`  
-2. Colab Drive / upload  
-3. `sklearn.datasets.load_wine`
+| Section | Content |
+|---------|---------|
+| 1. Aim & Objectives | Purpose of the experiment |
+| 2. Complete Python Code | One clean code cell that runs top to bottom |
+| 3. Line-by-Line Code Explanation | Meaning of every import, function and variable |
+| 4. Output & Graph Interpretation | What the accuracy curve and confusion matrix show |
 
 ## How to run
+
+**Google Colab:** click the badge above, then **Runtime → Run all**.
+
+**Local machine:**
 
 ```bash
 cd 06_KNN_Classifier
 jupyter notebook practical_06.ipynb
 ```
 
-Select **Python (ML Lab Kernel)**.
+Use the standard **Python 3** kernel. Required packages: `numpy`, `pandas`, `matplotlib`, `scikit-learn`.
 
-## Assessment hints
+## Expected result
 
-- $k=3$ on the toy: uniform **B**, distance-weighted **A** — explain why.
-- Never choose $k$ on the test set; quote **test** accuracy at $k^\star$.
-- Unscaled Euclidean is dominated by large-range columns (e.g. proline).
-- $k=1$ train error $\approx 0$ is not a success; look at validation.
+Accuracy is about 0.94 at k = 5 and reaches roughly 0.98 near k = 13, with almost all test wines on the diagonal of the confusion matrix.
+
+## Viva points
+
+- KNN is a **lazy** learner: it stores the training data and computes distances only at prediction time.
+- Feature scaling is compulsory, otherwise `proline` (in hundreds) decides every neighbour.
+- The scaler is fitted on the training data only, then applied to the test data.
+- Small k follows noise, very large k over-smooths — hence the accuracy-vs-k curve.

@@ -1,31 +1,46 @@
-# Practical 08 — Naïve Bayes for Text Classification
+# Practical 08 — Naive Bayes Classifier for Text (SMS Spam)
 
-**Syllabus (Parul University):** *Implement a Naïve Bayes classifier for text classification.*  
-**Kernel:** `ml-lab-kernel`  
-**Data:** SMS Spam Collection — `data/sms_spam.csv` (label ∈ {ham, spam}, free-text `message`; public dump has 5,572 rows)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liamdev07/machine-learning-laboratory/blob/main/08_Naive_Bayes_Text/practical_08.ipynb)
+
+**Aim:** To implement the Naive Bayes classifier for text classification and evaluate its performance.
+
+**Dataset:** `data/sms_spam.csv` — 5572 SMS messages labelled `ham` (4825) or `spam` (747).
 
 ## Objectives
 
-1. State Bayes’ rule, the **naïve** independence assumption, **multinomial** likelihoods, and **Laplace** smoothing.
-2. Clean SMS text (regex), drop stopwords, tokenize; compare **Count** vs **TF–IDF** features.
-3. Implement `ScratchMultinomialNB` and match `sklearn.naive_bayes.MultinomialNB`.
-4. Tune `alpha` in a `TfidfVectorizer` + `MultinomialNB` pipeline.
-5. Confusion matrix, ROC/PR, top tokens for spam vs ham.
-6. Classify **new** SMS strings with the fitted pipeline.
+1. Convert SMS messages into a numeric word-count matrix using `CountVectorizer`.
+2. Train a `MultinomialNB` model to classify each message as ham or spam.
+3. Report accuracy, plot the confusion matrix and test the model on new messages.
 
-## Dual load path
+## Notebook structure
 
-1. `./data/sms_spam.csv`
-2. GitHub raw TSV (`label`, `message`) used in many tutorials
-3. Embedded mini-corpus only if both fail (not a substitute for the full lab)
-
-## Citation
-
-Almeida, Hidalgo, Yamakami — SMS Spam Collection (UCI / OpenML). Almeida & Hidalgo.
+| Section | Content |
+|---------|---------|
+| 1. Aim & Objectives | Purpose of the experiment |
+| 2. Complete Python Code | One clean code cell that runs top to bottom |
+| 3. Line-by-Line Code Explanation | Meaning of every import, function and variable |
+| 4. Output & Graph Interpretation | What the top-words chart and confusion matrix show |
 
 ## How to run
+
+**Google Colab:** click the badge above, then **Runtime → Run all**.
+
+**Local machine:**
 
 ```bash
 cd 08_Naive_Bayes_Text
 jupyter notebook practical_08.ipynb
 ```
+
+Use the standard **Python 3** kernel. Required packages: `numpy`, `pandas`, `matplotlib`, `scikit-learn`.
+
+## Expected result
+
+Test accuracy is about 98%, the strongest spam words are "free", "txt", "claim" and "prize", and the two new sample messages are classified correctly.
+
+## Viva points
+
+- Bayes theorem and why the model is called **naive** (all words assumed independent).
+- `CountVectorizer` builds the vocabulary from the training text only.
+- Laplace smoothing (`alpha=1`) stops an unseen word from making the probability zero.
+- Accuracy alone is misleading on imbalanced data — quote spam precision and recall.
