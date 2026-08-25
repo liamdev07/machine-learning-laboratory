@@ -1,4 +1,75 @@
-.venv
-__pycache__
-.ipynb_checkpoints
-*.pyc
+# =============================================================================
+# Production-grade .gitignore (recursive — applies to this repo and all children)
+# =============================================================================
+
+# --- Python virtual environments ---
+**/.venv/
+**/.venv/**
+**/venv/
+**/env/
+**/.env/
+**/.virtualenv/
+**/ENV/
+
+# --- Python bytecode / caches ---
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+**/*.pyo
+**/*.pyd
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.coverage
+**/.coverage.*
+**/htmlcov/
+**/.tox/
+**/.nox/
+**/*.egg-info/
+**/*.egg
+**/dist/
+**/build/
+**/.eggs/
+
+# --- Jupyter ---
+**/.ipynb_checkpoints/
+**/.ipynb_checkpoints/**
+**/profile_default/
+**/ipython_config.py
+
+# --- IDE / editor ---
+**/.vscode/
+**/.idea/
+**/*.swp
+**/*.swo
+**/*~
+**/.project
+**/.classpath
+**/.settings/
+
+# --- OS junk ---
+**/.DS_Store
+**/.DS_Store?
+**/._*
+**/.Spotlight-V100
+**/.Trashes
+**/ehthumbs.db
+**/Thumbs.db
+**/desktop.ini
+
+# --- Scratch / runner leftovers ---
+**/tempCodeRunnerFile*
+**/*.tmp
+**/*.temp
+**/.cache/
+
+# --- Secrets (never commit) ---
+**/.env
+**/.env.*
+!**/.env.example
+**/secrets.json
+**/credentials.json
+
+# --- Logs ---
+**/*.log
+**/logs/
